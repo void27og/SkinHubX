@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>SkinHub | Minecraft Skins</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- skinview3d for 3D skin preview (local copy) -->
+  <script src="skinview3d.bundle.js" defer></script>
+  <script src="client.js" defer></script>
+</head>
+<body>
+  <div class="bg-grid"></div>
+
+  <header class="navbar">
+    <div class="navbar-left">
+      <div class="logo-circle"></div>
+      <div class="logo-text">
+        <span class="logo-title">Glacier</span>
+        <span class="logo-subtitle">Skins</span>
+      </div>
+    </div>
+    <nav class="navbar-right">
+      <a href="#lookup" class="nav-link">Lookup</a>
+      <a href="#upload" class="nav-link">Upload</a>
+      <a href="#gallery" class="nav-link">Gallery</a>
+    </nav>
+  </header>
+
+  <main class="page">
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-text">
+        <h1>Minecraft skins, <span class="accent">Glacier-style</span>.</h1>
+        <p class="hero-subtext">
+          Search any player&apos;s live skin or upload your own. Fast previews, clean UI, no cursed ad spam.
+        </p>
+        <div class="hero-actions">
+          <a href="#lookup" class="btn btn-primary">Lookup skin</a>
+          <a href="#upload" class="btn btn-ghost">Upload skin</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <span class="dot red"></span>
+          <span class="dot yellow"></span>
+          <span class="dot green"></span>
+        </div>
+        <div class="hero-card-body">
+          <p class="terminal-line">$ skin lookup <span class="accent">YourIGN</span></p>
+          <p class="terminal-muted">// pulls current Mojang skin &amp; shows 3D preview</p>
+          <div class="hero-preview">
+            <div id="hero-viewer" class="skin-viewer">
+              <div class="skin-hint">Drag to rotate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lookup section -->
+    <section id="lookup" class="section">
+      <div class="section-header">
+        <h2>Lookup by username</h2>
+        <p>Fetch the current Mojang skin for any Java username.</p>
+      </div>
+
+      <div class="glass-card">
+        <form id="lookup-form" class="form-row">
+          <input
+            type="text"
+            id="username"
+            class="input"
+            placeholder="Enter Minecraft username (e.g. VoidBonked)"
+            required
+          />
+          <button type="submit" class="btn btn-primary">Fetch skin</button>
+        </form>
+
+        <div id="lookup-result" class="lookup-result">
+          <div class="preview-placeholder">Enter a username to view the 3D skin.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Upload section -->
+    <section id="upload" class="section">
+      <div class="section-header">
+        <h2>Upload your skin</h2>
+        <p>Share your own PNG skin file. It stays hosted on this site.</p>
+      </div>
+
+      <div class="glass-card">
+        <form id="upload-form" class="form-grid" enctype="multipart/form-data">
+          <div class="form-field">
+            <label for="author">Author name (optional)</label>
+            <input type="text" id="author" name="author" class="input" placeholder="Your name / IGN" />
+          </div>
+          <div class="form-field">
+            <label for="name">Skin name (optional)</label>
+            <input type="text" id="name" name="name" class="input" placeholder="Cool PvP Skin" />
+          </div>
+          <div class="form-field">
+            <label for="file">Skin file (.png)</label>
+            <input type="file" id="file" name="file" class="input-file" accept="image/png" required />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary full-width">Upload</button>
+          </div>
+        </form>
+
+        <div id="upload-status" class="status-text"></div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="section">
+      <div class="section-header">
+        <h2>Uploaded skins gallery</h2>
+        <p>All skins uploaded to this site, in one place.</p>
+      </div>
+
+      <div class="glass-card">
+        <div id="uploaded-skins" class="skin-grid">
+          <div class="preview-placeholder">Uploads show here with 3D viewers.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>Ac <span id="year"></span> Glacier Skins. Built by <span class="accent">Dev and Void</span>.</div>
+    <div class="footer-links">
+      <span>Not affiliated with Mojang or Microsoft.</span>
+    </div>
+  </footer>
+</body>
+</html>
