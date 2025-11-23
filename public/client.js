@@ -245,6 +245,9 @@ async function loadUploadedSkins() {
     const wrapper = document.createElement("div");
     wrapper.className = "skin-grid-inner";
 
+    uploadedSkinsContainer.innerHTML = "";
+    uploadedSkinsContainer.appendChild(wrapper);
+
     for (const skin of data.slice().reverse()) {
       const div = document.createElement("div");
       div.className = "skin-item";
@@ -258,10 +261,8 @@ async function loadUploadedSkins() {
         minute: "2-digit"
       });
 
-      const viewerId = `skin-viewer-${skin.id}`;
-
       div.innerHTML = `
-        <div id="${viewerId}" class="skin-viewer">
+        <div class="skin-viewer">
           <div class="skin-hint">Drag to rotate</div>
         </div>
         <div class="skin-name">${skin.name || "Untitled skin"}</div>
@@ -274,17 +275,12 @@ async function loadUploadedSkins() {
 
       wrapper.appendChild(div);
 
-      const viewerCreated = await renderSkinViewer(viewerId, skin.url, { height: 220 });
+      const viewerContainer = div.querySelector(".skin-viewer");
+      const viewerCreated = await renderSkinViewer(viewerContainer, skin.url, { height: 220 });
       if (!viewerCreated) {
-        const fallbackTarget = document.getElementById(viewerId);
-        if (fallbackTarget) {
-          showFallbackImage(fallbackTarget, skin.url, skin.name || "Uploaded skin");
-        }
+        showFallbackImage(viewerContainer, skin.url, skin.name || "Uploaded skin");
       }
     }
-
-    uploadedSkinsContainer.innerHTML = "";
-    uploadedSkinsContainer.appendChild(wrapper);
   } catch (err) {
     console.error(err);
     uploadedSkinsContainer.textContent = "Failed to load uploaded skins.";
